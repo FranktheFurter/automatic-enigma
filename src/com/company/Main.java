@@ -26,11 +26,40 @@ public class Main {
 
     }
     private static boolean[][] golLogic(boolean[][] field) {
+        int aliveNeighbours;
+        int deadNeighbours;
+        boolean cellValue;
 
+        //iterate trough all elements
+        for (int i =0; i<field.length; i++){
+            for (int j =0; j<field.length; j++){
+                cellValue = field[i][j];
+
+                aliveNeighbours=countAliveNeighbours(field,i,j); 
+                deadNeighbours=countDeadNeighbours(field,i,j);
+            
+            }
+        }
 
 
         return field;
     }
+
+
+    @todo // implement
+///////////////
+private static int countDeadNeighbours(boolean[][] field, int i, int j) {
+        return 0;
+    }
+    private static int countAliveNeighbours(boolean[][] field, int i, int j) {
+        return 0;
+    }
+///////////////
+
+
+
+
+
     private static void printfield(boolean[][] field) {
         System.out.println(Arrays.deepToString(space).replace("], ", "]\n").replace("[[", "[").replace("]]", "]").replace("true", alive).replace("false", dead));
     }
