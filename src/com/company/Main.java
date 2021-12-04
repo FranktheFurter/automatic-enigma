@@ -8,8 +8,8 @@ public class Main {
     public static boolean[][] space = new boolean[32][32] ;
     public static Random random = new Random();
 
-    public static String alive = "0";
-    public static String dead = " ";
+    public static String alive = "1";
+    public static String dead = "0";
 
 
 
@@ -18,10 +18,21 @@ public class Main {
         //randomize Field
         space = randomize(space);
 
+        //print field
+        printfield(space);
+        
+        //game of life logic
+        space = golLogic(space);
+
+    }
+    private static boolean[][] golLogic(boolean[][] field) {
+
+
+
+        return field;
+    }
+    private static void printfield(boolean[][] field) {
         System.out.println(Arrays.deepToString(space).replace("], ", "]\n").replace("[[", "[").replace("]]", "]").replace("true", alive).replace("false", dead));
-
-
-
     }
     public static boolean[][] randomize (boolean[][] space){
 
