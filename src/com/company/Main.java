@@ -10,64 +10,69 @@ public class Main {
 
     public static int interationcounter=0;
     public static String alive = " O ";
-    public static String dead = "   ";
+    public static String dead = " . ";
 
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //randomize Field
         space = randomize(space);
+        
 
         //print field
         printfield(space);
         
         //game of life logic
-        for (int i =0;i<10;i++){
+        for (int i =0;i<15;i++){
         space = golLogic(space);
         printfield(space);
+        
+        Thread.sleep(200);
         }
 
     }
     private static boolean[][] golLogic(boolean[][] field) {
-        int aliveNeighbours;
-        //int deadNeighbours;
-        //boolean cellValue;
-
-
-        //debug
-        //System.out.println(countAliveNeighbours(field, 0, 0));
-        //System.out.println(countDeadNeighbours(field, 0, 0));
+        int aliveNeighboursCounter;
+        boolean[][] tmpfield = field;
+        //iterate trough all elements
 
         
-        //iterate trough all elements
         for (int i =0; i<field.length; i++){
             for (int j =0; j<field.length; j++){
                 
 
                 //count dead and alive of cell in i,j
-                aliveNeighbours=countAliveNeighbours(field,i,j); 
-                //deadNeighbours=countDeadNeighbours(field, i, j);
+                aliveNeighboursCounter=countAliveNeighbours(field,i,j); 
+               
 
                 //cell logic
-                if(field[i][j]==false && aliveNeighbours==3){
-                    field[i][j]=true;
+
+                if(field[i][j]==true && aliveNeighboursCounter<2){
+                    tmpfield[i][j]=false;
                 }
-                if(field[i][j]==true && aliveNeighbours<2){
-                    field[i][j]=false;
+
+                if(field[i][j]==true && aliveNeighboursCounter>3){
+                    tmpfield[i][j]=false;
                 }
-                if(field[i][j]==true && ((aliveNeighbours==2)||(aliveNeighbours==3))){
-                    field[i][j]=true;
+
+
+                if(field[i][j]==false && aliveNeighboursCounter==3){
+                    tmpfield[i][j]=true;
                 }
-                if(field[i][j]==true && aliveNeighbours>3){
-                    field[i][j]=false;
+                
+                else {
+                    tmpfield[i][j]=field[i][j];
                 }
+             
+                 
             
+                aliveNeighboursCounter=0;
             }
         }
         
 
-        return field;
+        return tmpfield;
     }
 
 
@@ -153,11 +158,17 @@ public class Main {
         System.out.println();
         */
 
+        System.out.println("---------------------------------------------------------------------");
+        //debug
+        System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
         for (int i = 0; i<field.length;i++){
             for (int j = 0; j<field.length;j++){
                 
 
-                if(field[i][j]==true){
+                if (i==0 && j ==0){
+                    System.out.print(" X ");
+                }
+                else if(field[i][j]==true){
 
                 System.out.print(alive);
 
@@ -172,6 +183,7 @@ public class Main {
         
     System.out.println("-------------------Iteration: "+interationcounter+"----------------------");
     interationcounter=interationcounter+1;
+    
 
     }
     public static boolean[][] randomize (boolean[][] space){
