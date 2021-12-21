@@ -10,7 +10,7 @@ public class Main {
 
     public static int interationcounter=0;
     public static String alive = " O ";
-    public static String dead = " . ";
+    public static String dead = "   ";
 
 
 
@@ -160,15 +160,11 @@ public class Main {
 
         System.out.println("---------------------------------------------------------------------");
         //debug
-        System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
+        //System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
         for (int i = 0; i<field.length;i++){
             for (int j = 0; j<field.length;j++){
                 
-
-                if (i==0 && j ==0){
-                    System.out.print(" X ");
-                }
-                else if(field[i][j]==true){
+                 if(field[i][j]==true){
 
                 System.out.print(alive);
 
