@@ -7,8 +7,9 @@ public class Main {
 
     public static boolean[][] space = new boolean[32][32] ;
     public static Random random = new Random();
+    public static int randomthreshold =15;
 
-    public static int interationcounter=0;
+    public static int interationcounter=1;
     public static String alive = " O ";
     public static String dead = "   ";
 
@@ -17,20 +18,46 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         //randomize Field
-        space = randomize(space);
-        
+        //space = randomize(space);
+        space = randomizer(space);
 
         //print field
-        printfield(space);
+        //printfield(space);
         
         //game of life logic
-        for (int i =0;i<15;i++){
+        for (int i =0;i<90;i++){
         space = golLogic(space);
         printfield(space);
         
-        Thread.sleep(200);
+        Thread.sleep(333);
         }
 
+    }
+    private static  boolean[][] randomizer(boolean[][] field) {
+
+        int upper = 100;
+        int lower = 1;
+        
+    
+
+        for (int i =0; i<field.length; i++){
+            for (int j =0; j<field.length; j++){
+
+                int rndmNumber =  (int) (Math.random() * (upper - lower)) + lower;
+                if (randomthreshold <= rndmNumber){
+                    field[i][j]=true;
+            
+                }
+                else {
+                    field[i][j]=false;
+                }
+            
+            }
+        }
+
+
+
+        return field;
     }
     private static boolean[][] golLogic(boolean[][] field) {
         int aliveNeighboursCounter;
@@ -158,7 +185,7 @@ public class Main {
         System.out.println();
         */
 
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------");
         //debug
         //System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
         for (int i = 0; i<field.length;i++){
@@ -176,8 +203,9 @@ public class Main {
             System.out.println();
         }
 
-        
-    System.out.println("-------------------Iteration: "+interationcounter+"----------------------");
+    System.out.println();    
+    System.out.println("Iteration: "+interationcounter);
+    System.out.println();
     interationcounter=interationcounter+1;
     
 
