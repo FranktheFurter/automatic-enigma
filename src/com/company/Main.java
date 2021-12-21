@@ -7,7 +7,7 @@ public class Main {
 
     public static boolean[][] space = new boolean[32][32] ;
     public static Random random = new Random();
-    public static int randomthreshold =15;
+    public static int randomthreshold =5;
 
     public static int interationcounter=1;
     public static String alive = " O ";
@@ -25,7 +25,7 @@ public class Main {
         //printfield(space);
         
         //game of life logic
-        for (int i =0;i<90;i++){
+        for (int i =0;i<9;i++){
         space = golLogic(space);
         printfield(space);
         
@@ -44,6 +44,9 @@ public class Main {
             for (int j =0; j<field.length; j++){
 
                 int rndmNumber =  (int) (Math.random() * (upper - lower)) + lower;
+                //System.out.println(rndmNumber);
+
+
                 if (randomthreshold <= rndmNumber){
                     field[i][j]=true;
             
@@ -69,7 +72,7 @@ public class Main {
             for (int j =0; j<field.length; j++){
                 
 
-                //count dead and alive of cell in i,j
+                //count alive neighbours of cell in i,j
                 aliveNeighboursCounter=countAliveNeighbours(field,i,j); 
                
 
@@ -92,9 +95,7 @@ public class Main {
                     tmpfield[i][j]=field[i][j];
                 }
              
-                 
-            
-                aliveNeighboursCounter=0;
+                  aliveNeighboursCounter=0;
             }
         }
         
@@ -102,30 +103,6 @@ public class Main {
         return tmpfield;
     }
 
-
-    private static int countDeadNeighbours(boolean[][] field, int i, int j) {
-        int counter = 0;
-        //all 8 cases
-
-        //oben links
-        counter+=safeDead(field,i-1,j-1);
-        //oben mitte
-        counter+=safeDead(field,i-1,j);
-        //oben rechts
-        counter+=safeDead(field,i-1,j+1);
-        //mitte links
-        counter+=safeDead(field,i,j-1);
-        //mitte rechts
-        counter+=safeDead(field,i,j+1);
-        //unten links
-        counter+=safeDead(field,i+1,j-1);
-        //unten mitte
-        counter+=safeDead(field,i+1,j);
-        //unten rechts
-        counter+=safeDead(field,i+1,j+1);
-
-        return counter;
-    }
     private static int countAliveNeighbours(boolean[][] field, int i, int j) {
         int counter = 0;
         //all 8 cases
@@ -161,30 +138,11 @@ public class Main {
 
         return 0;
     }
-    private static int safeDead(boolean[][] field, int i, int j) {
-        try {
-            if(field[i][j]==false){
-                return 1;
-            }
-        }
-        //out of bounds is dead
-        catch(ArrayIndexOutOfBoundsException exception) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-
 
 
 
     private static void printfield(boolean[][] field) {
-        /*
-        System.out.println(Arrays.deepToString(space).replace("], ", "]\n").replace("[[", "[").replace("]]", "]").replace("true", alive).replace("false", dead));
-        System.out.println();
-        */
-
+       
         System.out.println("------------------------------------------------------------------------------------");
         //debug
         //System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
