@@ -5,13 +5,21 @@ import java.util.Random;
 
 public class Main {
 
-    public static boolean[][] space = new boolean[32][32] ;
+    public static int iInit = 32;
+    public static int jInit = 48;
+
+    public static boolean[][] space = new boolean[iInit][jInit];
+    public static boolean[][] tmpspace = space;
+
+    public static int [][] aliveNeighbours = new int [iInit][jInit];
+
     public static Random random = new Random();
-    public static int randomthreshold =5;
+    public static int randomthreshold =90;
 
     public static int interationcounter=1;
     public static String alive = " O ";
     public static String dead = "   ";
+    public static String wall = " # ";
 
 
 
@@ -20,18 +28,24 @@ public class Main {
         //randomize Field
         //space = randomize(space);
         space = randomizer(space);
+        tmpspace = space;
 
         //print field
         //printfield(space);
+        //printfield(tmpspace);
+        
+
+
         
         //game of life logic
-        for (int i =0;i<9;i++){
+        for (int i =0;i<30;i++){
         space = golLogic(space);
         printfield(space);
         
         Thread.sleep(333);
         }
 
+        
     }
     private static  boolean[][] randomizer(boolean[][] field) {
 
@@ -68,8 +82,8 @@ public class Main {
         //iterate trough all elements
 
         
-        for (int i =0; i<field.length; i++){
-            for (int j =0; j<field.length; j++){
+        for (int i =0; i<iInit; i++){
+            for (int j =0; j<jInit; j++){
                 
 
                 //count alive neighbours of cell in i,j
@@ -78,24 +92,18 @@ public class Main {
 
                 //cell logic
 
-                if(field[i][j]==true && aliveNeighboursCounter<2){
-                    tmpfield[i][j]=false;
-                }
-
-                if(field[i][j]==true && aliveNeighboursCounter>3){
-                    tmpfield[i][j]=false;
-                }
-
-
                 if(field[i][j]==false && aliveNeighboursCounter==3){
                     tmpfield[i][j]=true;
                 }
-                
-                else {
-                    tmpfield[i][j]=field[i][j];
+                if(field[i][j]==true && aliveNeighboursCounter<2){
+                    tmpfield[i][j]=false;
                 }
-             
-                  aliveNeighboursCounter=0;
+                if(field[i][j]==true && ((aliveNeighboursCounter==2)||(aliveNeighboursCounter==3))){
+                    tmpfield[i][j]=true;
+                }
+                if(field[i][j]==true && aliveNeighboursCounter>3){
+                    tmpfield[i][j]=false;
+                }
             }
         }
         
@@ -143,12 +151,15 @@ public class Main {
 
     private static void printfield(boolean[][] field) {
        
-        System.out.println("------------------------------------------------------------------------------------");
+        
         //debug
         //System.out.println("Alive neighbours at 0, 0      :" + countAliveNeighbours(field,0,0));
-        for (int i = 0; i<field.length;i++){
-            for (int j = 0; j<field.length;j++){
+        for (int i = -1; i<iInit+1;i++){
+            for (int j = -1; j<jInit+1;j++){
                 
+                try {
+
+
                  if(field[i][j]==true){
 
                 System.out.print(alive);
@@ -157,7 +168,10 @@ public class Main {
 
                     System.out.print(dead);
                 }
+            } catch(ArrayIndexOutOfBoundsException exception) {
+                System.out.print(wall);;
             }
+        }
             System.out.println();
         }
 
@@ -170,8 +184,8 @@ public class Main {
     }
     public static boolean[][] randomize (boolean[][] space){
 
-        for (int i = 0; i<space.length;i++){
-            for (int j = 0; j<space.length;j++){
+        for (int i = 0; i<iInit;i++){
+            for (int j = 0; j<jInit;j++){
                 space[i][j] = random.nextBoolean();;
 
             }
