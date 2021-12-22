@@ -7,11 +7,9 @@ public class Main {
 
     public static int iInit = 32;
     public static int jInit = 48;
+    public static int iterations = 30;
 
     public static boolean[][] space = new boolean[iInit][jInit];
-    public static boolean[][] tmpspace = space;
-
-    public static int [][] aliveNeighbours = new int [iInit][jInit];
 
     public static Random random = new Random();
     public static int randomthreshold =90;
@@ -26,23 +24,17 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         //randomize Field
-        //space = randomize(space);
         space = randomizer(space);
-        tmpspace = space;
 
         //print field
-        //printfield(space);
-        //printfield(tmpspace);
-        
-
-
+        //printfield(space);    
         
         //game of life logic
-        for (int i =0;i<30;i++){
+        for (int i =0;i<iterations;i++){
         space = golLogic(space);
         printfield(space);
         
-        Thread.sleep(333);
+        Thread.sleep(200);
         }
 
         
@@ -95,13 +87,13 @@ public class Main {
                 if(field[i][j]==false && aliveNeighboursCounter==3){
                     tmpfield[i][j]=true;
                 }
-                if(field[i][j]==true && aliveNeighboursCounter<2){
+                else if(field[i][j]==true && aliveNeighboursCounter<2){
                     tmpfield[i][j]=false;
                 }
-                if(field[i][j]==true && ((aliveNeighboursCounter==2)||(aliveNeighboursCounter==3))){
+                else if(field[i][j]==true && ((aliveNeighboursCounter==2)||(aliveNeighboursCounter==3))){
                     tmpfield[i][j]=true;
                 }
-                if(field[i][j]==true && aliveNeighboursCounter>3){
+                else if(field[i][j]==true && aliveNeighboursCounter>3){
                     tmpfield[i][j]=false;
                 }
             }
@@ -181,16 +173,5 @@ public class Main {
     interationcounter=interationcounter+1;
     
 
-    }
-    public static boolean[][] randomize (boolean[][] space){
-
-        for (int i = 0; i<iInit;i++){
-            for (int j = 0; j<jInit;j++){
-                space[i][j] = random.nextBoolean();;
-
-            }
-        }
-
-        return space;
     }
 }
