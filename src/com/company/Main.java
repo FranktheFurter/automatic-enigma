@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Main {
 
-    public static int iInit = 32;
-    public static int jInit = 48;
+    public static int iInit = 16;
+    public static int jInit = 16;
     public static int iterations = 30;
 
     public static boolean[][] space = new boolean[iInit][jInit];
